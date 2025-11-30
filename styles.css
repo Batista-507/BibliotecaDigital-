@@ -1,0 +1,591 @@
+/* ==================================== */
+/* 1. VARIABLES GLOBALES Y RESET */
+/* ==================================== */
+:root {
+    --color-primary: #007bff;     /* Azul brillante, profesional */
+    --color-secondary: #28a745;   /* Verde para acciones positivas */
+    --color-dark: #343a40;        /* Negro/Gris oscuro para fondo */
+    --color-light: #ffffff;
+    --color-background: #f8f9fa;  /* Gris muy claro */
+    --color-text: #495057;        /* Gris de texto principal */
+    --color-accent: #ffc107;      /* Amarillo para destacar */
+    --font-stack: 'Poppins', sans-serif;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--color-background);
+    line-height: 1.6;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-primary);
+    transition: color 0.3s;
+}
+
+/* Títulos de Sección */
+.section-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-dark);
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+}
+
+/* Botones CTA (Call to Action) */
+.cta-button {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.cta-button.primary {
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.cta-button.primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.cta-button.secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-light);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+
+.cta-button.secondary:hover {
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+/* ==================================== */
+/* 2. CABECERA Y NAVEGACIÓN */
+/* ==================================== */
+.main-header {
+    background-color: var(--color-dark);
+    box-shadow: var(--shadow-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 15px 30px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8em; 
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.main-nav {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-item {
+    color: #ced4da;
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--color-light); 
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+    width: 100%;
+}
+
+.nav-item i {
+    margin-right: 5px;
+}
+
+.search-btn {
+    background: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 8px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-light);
+}
+
+/* BARRA DE BÚSQUEDA FLOTANTE */
+.search-container {
+    background-color: var(--color-light);
+    border-top: 1px solid #dee2e6;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease-in-out;
+    max-width: 100%;
+}
+
+.search-container.hidden {
+    /* Mantiene la altura, pero hace que no sea visible ni interactuable */
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 8px 15px;
+    font-size: 1.05em;
+    outline: none;
+}
+
+.search-icon {
+    color: var(--color-primary); 
+    margin-right: 15px;
+    font-size: 1.3em;
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    color: #dc3545; /* Rojo para limpiar */
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 5px;
+    transition: color 0.3s;
+}
+
+.clear-search-btn:hover {
+    color: #c82333;
+}
+
+/* ==================================== */
+/* 3. SECCIÓN HERO (INICIO) */
+/* ==================================== */
+.hero-section {
+    background-color: #e9ecef;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 80px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 600px;
+    z-index: 10;
+    animation: slideIn 1s ease-out;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    color: var(--color-dark);
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    color: var(--color-text);
+    margin-bottom: 30px;
+}
+
+/* Elemento animado de Fondo (Efecto Multimedia) */
+.hero-animation-element {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    opacity: 0.1;
+    border-radius: 50%;
+    animation: rotateAndScale 15s infinite linear;
+    z-index: 5;
+}
+
+/* Keyframes de Animación */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes rotateAndScale {
+    0% { transform: translateY(-50%) rotate(0deg) scale(1); }
+    50% { transform: translateY(-50%) rotate(180deg) scale(1.05); }
+    100% { transform: translateY(-50%) rotate(360deg) scale(1); }
+}
+
+/* ==================================== */
+/* 4. SECCIÓN DE BIBLIOTECA (GRID) */
+/* ==================================== */
+.library-section {
+    padding: 60px 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 30px;
+}
+
+/* TARJETA DE LIBRO */
+.book-card {
+    background-color: var(--color-light);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card:hover {
+    box-shadow: var(--shadow-deep);
+    transform: translateY(-8px) scale(1.02);
+}
+
+.cover-wrapper {
+    overflow: hidden;
+    height: 300px; 
+    position: relative;
+    background-color: #ccc; /* Fallback */
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.book-card:hover .book-cover {
+    transform: scale(1.1); 
+}
+
+.book-content {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.book-title {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: var(--color-dark);
+    margin-bottom: 5px;
+    /* Limitamos el texto para que el grid se vea uniforme */
+    height: 40px; 
+    overflow: hidden;
+}
+
+.book-desc {
+    font-size: 0.85em;
+    color: var(--color-text);
+    /* Limitamos a 3 líneas */
+    height: 45px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin-bottom: 10px;
+}
+
+.book-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-top: 10px;
+    text-transform: uppercase;
+    color: var(--color-light);
+    background-color: var(--color-primary); /* Default tag color */
+}
+
+/* Estilos de No Resultados */
+.no-results {
+    grid-column: 1 / -1; 
+    text-align: center;
+    padding: 60px;
+    font-size: 1.4em;
+    color: #6c757d;
+    background-color: var(--color-light);
+    border-radius: 15px;
+    border: 1px dashed #ced4da;
+}
+
+/* ==================================== */
+/* 5. SECCIÓN RECURSOS Y CONTACTO */
+/* ==================================== */
+.resources-section {
+    background-color: var(--color-background);
+    padding: 60px 30px;
+}
+
+.resources-grid {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.resource-card {
+    background-color: var(--color-light);
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s;
+}
+
+.resource-card:hover {
+    background-color: #e9f5ff; /* Color al pasar el ratón */
+    border-bottom: 4px solid var(--color-primary);
+    transform: translateY(-5px);
+}
+
+.resource-card i {
+    font-size: 3em;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.resource-card h3 {
+    color: var(--color-dark);
+    margin-bottom: 10px;
+}
+
+/* SECCIÓN CONTACTO */
+.contact-section {
+    padding: 60px 30px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+
+.contact-section .section-title {
+    color: var(--color-light);
+}
+
+.contact-section .section-title::after {
+    background-color: var(--color-secondary);
+}
+
+.contact-form-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    background-color: #495057; /* Fondo sutil dentro de la sección oscura */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-deep);
+}
+
+.contact-form {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #6c757d;
+    border-radius: 6px;
+    background-color: #5a6268;
+    color: var(--color-light);
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.contact-info {
+    flex: 1;
+    border-left: 1px solid #6c757d;
+    padding-left: 30px;
+}
+
+.contact-info h3 {
+    color: var(--color-accent);
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.contact-info i {
+    color: var(--color-secondary);
+    margin-right: 10px;
+}
+
+/* Redes Sociales */
+.social-links {
+    margin-top: 30px;
+}
+
+.social-links h4 {
+    color: var(--color-light);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.social-icon {
+    font-size: 1.5em;
+    margin-right: 15px;
+    color: var(--color-light);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+}
+
+.facebook:hover { color: #3b5998; }
+.twitter:hover { color: #1da1f2; }
+.linkedin:hover { color: #0077b5; }
+.instagram:hover { color: #c32aa3; }
+
+
+/* ==================================== */
+/* 6. PIE DE PÁGINA */
+/* ==================================== */
+.main-footer {
+    background-color: var(--color-dark);
+    color: #adb5bd;
+    text-align: center;
+    padding: 20px 30px;
+    border-top: 5px solid var(--color-primary);
+    font-size: 0.9em;
+}
+
+.main-footer p {
+    margin: 5px 0;
+}
+
+/* ==================================== */
+/* 7. RESPONSIVE DESIGN */
+/* ==================================== */
+@media (max-width: 992px) {
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .main-nav {
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-animation-element {
+        display: none; 
+    }
+
+    .contact-form-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .contact-info {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid #6c757d;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .main-header .logo, .search-btn {
+        margin: 5px 10px;
+    }
+    .main-nav {
+        gap: 15px;
+    }
+}
